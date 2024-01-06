@@ -2,8 +2,8 @@
 
 """A script to update my stream labels"""
 
-from inprogress import write_ttl
-from launch_when import write_in_progess
+from effort_remaining import write_ttl
+from current_task import write_in_progess
 
 
 if __name__ == "__main__":

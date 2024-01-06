@@ -34,8 +34,13 @@ def write_in_progess():
         labels = []
         for issue in issues:
             summary = issue["fields"]["summary"]
-            points = issue["fields"]["customfield_10032"]
-            labels.append(f"{summary} ({points}pts)")
+            points = int(issue["fields"]["customfield_10032"])
+            if points > 1:
+                labels.append(f"{summary} ({points}pts)")
+            elif points == 1:
+                labels.append(f"{summary} ({points}pt)")
+            else:
+                labels.append(f"{summary}")
         label_text = ", ".join(labels)
     label_text = f"Current Task: {label_text}"
 

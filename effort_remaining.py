@@ -2,6 +2,7 @@
 
 """Write the current time left to launch to a label"""
 import os
+import math
 import json
 import requests
 from requests.auth import HTTPBasicAuth
@@ -14,7 +15,7 @@ def write_ttl():
     """Write the ttl.txt file"""
     auth = HTTPBasicAuth(JIRA_EMAIL, JIRA_KEY)
     headers = {"Accept": "application/json"}
-    query = {"jql": ("project = TRI AND status != 'Done'")}
+    query = {"jql": ("project = TRI AND status != 'Done' and issuetype = 'Task'")}
 
     start = 0
     end = 1
@@ -43,9 +44,9 @@ def write_ttl():
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     label_text = (
         "Effort remaining: "
-        + str(total_points)
+        + str(int(total_points))
         + " points or "
-        + str(total_points / 8)
+        + str(math.ceil(total_points / 8))
         + " weeks"
     )
     with open(file_path, "w", encoding="utf8") as file:
